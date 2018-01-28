@@ -1,0 +1,10 @@
+{{#partial "sorted"}}
+    {{#if allCD}}
+        {{#each allCD}}
+            <p>Album: </p>
+            <p>{{sorted}}</p>
+        {{/each}}
+    {{else}}
+    <p>...</p>
+    {{/if}}
+{{/partial}}

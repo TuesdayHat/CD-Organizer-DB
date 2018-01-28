@@ -1,0 +1,39 @@
+{{#partial "content"}}
+
+    <h1>CD Organizer</h1>
+
+    <!--{{#if allCD}} &lt;!&ndash;if posts exist, then &ndash;&gt;-->
+        <!--{{#each allCD}} &lt;!&ndash;loop&ndash;&gt;-->
+            <!--<p>Organized CDs:</p>-->
+            <!--<p>{{sorted}}</p> &lt;!&ndash;show&ndash;&gt;-->
+        <!--{{/each}}-->
+    <!--{{else}} &lt;!&ndash;no posts!&ndash;&gt;-->
+    <!--<p>No CD!</p>-->
+    <!--{{/if}}-->
+
+    <p>Add a new CD:</p>
+
+    <form action="/" method="POST">
+        <label for="album">Album Title</label>
+        <input id="album" name="album" type="text">
+
+        <label for="artist">Artist</label>
+        <input id="artist" name="artist" type="text">
+
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+{{/partial}}
+
+{{#partial "sorted"}}
+    {{#if allCDs}}
+        {{#each allCDs}}
+            <p>Album: </p>
+            <p>{{title}}</p>
+            <p>{{artist}}</p>
+        {{/each}}
+    {{else}}
+        <p>...</p>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}
