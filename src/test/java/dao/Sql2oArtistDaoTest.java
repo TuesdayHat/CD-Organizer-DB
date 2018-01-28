@@ -39,4 +39,12 @@ public class Sql2oArtistDaoTest {
     artistDao.add(artist);
     assertEquals(1, artist.getId());
   }
+
+  @Test
+  public void findById_existingArtistsCanbeFoundById(){
+    Artist artist = testArtist();
+    artistDao.add(artist);
+    Artist foundArtist = artistDao.findById(artist.getId());
+    assertEquals(artist, foundArtist);
+  }
 }

@@ -5,9 +5,10 @@ import models.Artist;
 public interface ArtistDao {
 
   //Create
-  public void add(Artist artist);
+  void add(Artist artist);
 
   //Read
+  Artist findById(int id);
 
   //Update
 
