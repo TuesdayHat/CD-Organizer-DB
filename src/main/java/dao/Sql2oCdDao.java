@@ -54,16 +54,16 @@ public class Sql2oCdDao implements CdDao {
   }
 
   @Override
-  public void update(int id, String newName){
-//    String sql = "UPDATE artists SET name = :name WHERE id=:id";
-//    try(Connection con = sql2o.open()){
-//      con.createQuery(sql)
-//              .addParameter("name", newName)
-//              .addParameter("id", id)
-//              .executeUpdate();
-//    } catch (Sql2oException ex) {
-//      System.out.println(ex);
-//    }
+  public void update(int id, String newTitle){
+    String sql = "UPDATE cds SET title = :title WHERE id=:id";
+    try(Connection con = sql2o.open()){
+      con.createQuery(sql)
+              .addParameter("title", newTitle)
+              .addParameter("id", id)
+              .executeUpdate();
+    } catch (Sql2oException ex) {
+      System.out.println(ex);
+    }
   }
 
 }
