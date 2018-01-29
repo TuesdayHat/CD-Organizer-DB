@@ -77,7 +77,7 @@ public class Sql2oCdDaoTest {
   }
 
   @Test
-  public void deleteById_deletesCorrectArtist(){
+  public void deleteById_deletesCorrectCD(){
     CD cdOne = CDOne();
     cdDao.add(cdOne);
     CD cdTwo = CDTwo();
@@ -88,14 +88,14 @@ public class Sql2oCdDaoTest {
 
   }
 
-//  @Test
-//  public void clearAll_clearsAllArtists(){
-//    Artist artistOne = artistOne();
-//    artistDao.add(artistOne);
-//    Artist artistTwo = artistTwo();
-//    artistDao.add(artistTwo);
-//
-//    artistDao.clearAll();
-//    assertEquals(0, artistDao.getAll().size());
-//  }
+  @Test
+  public void clearAll_clearsAllCDs(){
+    CD cdOne = CDOne();
+    cdDao.add(cdOne);
+    CD cdTwo = CDTwo();
+    cdDao.add(cdTwo);
+
+    cdDao.clearAll();
+    assertEquals(0, cdDao.getAll().size());
+  }
 }

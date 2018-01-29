@@ -77,4 +77,9 @@ public class Sql2oCdDao implements CdDao {
       System.out.println(ex);
     }
   }
+
+  @Override
+  public void clearAll() {
+
+  }
 }

@@ -18,5 +18,5 @@ public interface CdDao {
 
   //Delete
   void deleteById(int id);
-//  void clearAll();
+  void clearAll();
 }
