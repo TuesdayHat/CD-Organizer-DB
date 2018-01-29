@@ -29,22 +29,33 @@ public class Sql2oArtistDaoTest {
     conn.close();
   }
 
-  public Artist testArtist() {
+  public Artist artistOne() {
     return new Artist("The Beatles");
+  }
+
+  public Artist artistTwo(){
+    return new Artist("The Who");
   }
 
   @Test
   public void add_addArtistSetsId(){
-    Artist artist = testArtist();
+    Artist artist = artistOne();
     artistDao.add(artist);
     assertEquals(1, artist.getId());
   }
 
   @Test
   public void findById_existingArtistsCanbeFoundById(){
-    Artist artist = testArtist();
+    Artist artist = artistOne();
     artistDao.add(artist);
     Artist foundArtist = artistDao.findById(artist.getId());
     assertEquals(artist, foundArtist);
+  }
+
+  @Test
+  public void getAll_getsAllAddedArtists(){
+    artistDao.add(artistOne());
+    artistDao.add(artistTwo());
+    assertEquals(2, artistDao.getAll().size());
   }
 }

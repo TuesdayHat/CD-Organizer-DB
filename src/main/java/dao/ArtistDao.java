@@ -2,6 +2,8 @@ package dao;
 
 import models.Artist;
 
+import java.util.List;
+
 public interface ArtistDao {
 
   //Create
@@ -9,6 +11,7 @@ public interface ArtistDao {
 
   //Read
   Artist findById(int id);
+  List<Artist> getAll();
 
   //Update
 
