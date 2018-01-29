@@ -39,12 +39,23 @@ public class App {
         get("/artists/update", (req, res)->{
             Map<String, Object> model = new HashMap<>();
 
-            return new ModelAndView(model, "index.hbs");
+            model.put("editCD", true);
+            List<Artist> artists = artistDao.getAll();
+            model.put("artists", artists);
+
+            return new ModelAndView(model, "artist-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //POST: process Update Artist form
         post("/artist/update", (req, res)->{
             Map<String, Object> model = new HashMap<>();
+
+            int idOfArtistToEdit = Integer.parseInt(req.queryParams("editArtistId"));
+            String newName = req.queryParams("newArtistName");
+            artistDao.update(artistDao.findById(idOfArtistToEdit).getId(), newName);
+
+            List<Artist> artists = artistDao.getAll();
+            model.put("artists", artists);
 
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
@@ -53,13 +64,21 @@ public class App {
         get("/artists/new", (req, res)->{
             Map<String, Object> model = new HashMap<>();
 
-            return new ModelAndView(model, "index.hbs");
+            List<Artist> artists = artistDao.getAll();
+            model.put("artists", artists);
+
+            return new ModelAndView(model, "artist-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //POST: process New Artist form
         post("/artists/new", (req, res)->{
             Map<String, Object> model = new HashMap<>();
+            String artist = req.queryParams("artist");
+            Artist newArtist = new Artist(artist);
+            artistDao.add(newArtist);
 
+            List<Artist> artists = artistDao.getAll();
+            model.put("artists", artists);
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -70,19 +89,29 @@ public class App {
             List<Artist> allArtists = artistDao.getAll();
             model.put("artists", allArtists);
 
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "artists.hbs");
         }, new HandlebarsTemplateEngine());
 
         //GET: show New CD form
         get("/artists/:artist_id/cds/new", (req, res)->{
             Map<String, Object> model = new HashMap<>();
 
-            return new ModelAndView(model, "index.hbs");
+            List<CD> allCDs = cdDao.getAllCDsByArtist(Integer.parseInt(req.queryParams("artistid")));
+            model.put("allCDs", allCDs);
+
+            return new ModelAndView(model, "cd-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //POST: process New CD form
         post("/artists/:artist_id/cds/new", (req, res)->{
             Map<String, Object> model = new HashMap<>();
+            String album = req.queryParams("album");
+            int artistId = Integer.parseInt(req.queryParams("artistId"));
+            CD newCD = new CD(album, artistId);
+            cdDao.add(newCD);
+
+            List<CD> cds = cdDao.getAll();
+            model.put("cds", cds);
 
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
@@ -94,7 +123,7 @@ public class App {
             model.put("foundArtist", artistDao.findById(artistId));
             model.put("foundCDs", cdDao.getAllCDsByArtist(artistId));
 
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "artist-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
         //GET: show individual CD
@@ -103,19 +132,30 @@ public class App {
             int cdId = Integer.parseInt(req.queryParams("cd_id"));
             CD foundCD = cdDao.findById(cdId);
             model.put("foundCD", foundCD.getTitle());
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "cd-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
         //GET: show CD Update form
         get("/artists/:artist_id/cds/:cd_id/update", (req, res)->{
             Map<String, Object> model = new HashMap<>();
 
-            return new ModelAndView(model, "index.hbs");
+            model.put("editCD", true);
+
+            List<CD> allCDs = cdDao.getAll();
+            model.put("cds", allCDs);
+
+            return new ModelAndView(model, "cd-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //POST: process CD Update form
         post("/artists/:artist_id/cds/:cd_id/update", (req, res)->{
             Map<String, Object> model = new HashMap<>();
+            int idOfCDToEdit = Integer.parseInt(req.queryParams("editCDId"));
+            String newTitle = req.queryParams("newCDName");
+            cdDao.update(cdDao.findById(idOfCDToEdit).getId(), newTitle);
+
+            List<CD> cds = cdDao.getAll();
+            model.put("cds", cds);
 
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
@@ -140,18 +180,6 @@ public class App {
 
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
-
-//        post("/", (request, response) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            String album = request.queryParams("album");
-//            String artist = request.queryParams("artist");
-//
-//            ArrayList<CD> allCDs= CD.getInstances();
-//
-//            CD newCD = new CD(album);
-//            model.put("allCDs", allCDs);
-//            return new ModelAndView(model, "index.hbs");
-//        }, new HandlebarsTemplateEngine());
     }
 
 }
