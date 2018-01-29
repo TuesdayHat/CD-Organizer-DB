@@ -59,6 +59,13 @@ public class Sql2oArtistDao implements ArtistDao {
 
   @Override
   public void deleteById(int id){
-
+    String sql = "DELETE FROM artists WHERE id = :id";
+    try(Connection con = sql2o.open()){
+      con.createQuery(sql)
+              .addParameter("id", id)
+              .executeUpdate();
+    }catch (Sql2oException ex) {
+      System.out.println(ex);
+    }
   }
 }
