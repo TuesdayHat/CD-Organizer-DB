@@ -1,16 +1,17 @@
 {{#partial "content"}}
 
     <h1>CD Organizer</h1>
-    <p>Add a new CD:</p>
 
 {{/partial}}
 
 {{#partial "sorted"}}
-    {{#if allCDs}}
-        {{#each allCDs}}
-            <p>Album: </p>
-            <p>{{title}}</p>
-            <p>{{artist}}</p>
+    {{#if artists}}
+        {{#each artists}}
+            <p>Artist: </p>
+            <h4>{{name}}</h4>
+            {{#each allCDs}}
+                <p>{{title}}</p>
+            {{/each}}
         {{/each}}
     {{else}}
         <p>...</p>

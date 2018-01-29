@@ -1,5 +1,5 @@
-{{#block content}}
-    <form action="/" method="POST">
+{{#partial "content"}}
+    <form action="/cds/new" method="POST">
         <label for="album">Album Title</label>
         <input id="album" name="album" type="text">
 
@@ -10,3 +10,5 @@
     </form>
 
 {{/block}}
+
+{{> layout.hbs}}

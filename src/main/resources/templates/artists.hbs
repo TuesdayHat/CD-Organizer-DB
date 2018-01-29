@@ -1,0 +1,13 @@
+{{#partial "content"}}
+    {{#if artists}}
+        {{#each artists}}
+            <p>Artist: </p>
+            <h4>{{name}}</h4>
+        {{/each}}
+    {{else}}
+        <p>...</p>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}
+

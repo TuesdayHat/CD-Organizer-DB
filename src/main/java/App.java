@@ -20,11 +20,36 @@ public class App {
         Sql2oArtistDao artistDao = new Sql2oArtistDao(sql2o);
         Sql2oCdDao cdDao = new Sql2oCdDao(sql2o);
 
+
+        //GET: show New CD form
+        get("/cds/new", (req, res)->{
+            Map<String, Object> model = new HashMap<>();
+
+            List<CD> allCDs = cdDao.getAllCDsByArtist(Integer.parseInt(req.queryParams("artistid")));
+            model.put("allCDs", allCDs);
+
+            return new ModelAndView(model, "cd-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //POST: process New CD form
+        post("/cds/new", (req, res)->{
+            Map<String, Object> model = new HashMap<>();
+            String album = req.queryParams("album");
+            int artistId = Integer.parseInt(req.queryParams("artistId"));
+            CD newCD = new CD(album, artistId);
+            cdDao.add(newCD);
+
+            List<CD> cds = cdDao.getAll();
+            model.put("cds", cds);
+
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+
         //GET: delete all CD's
         get("/cds/delete", (req, res)->{
             Map<String, Object> model = new HashMap<>();
             cdDao.clearAll();
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
         //GET: delete all artists and all CDs
@@ -32,7 +57,7 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             artistDao.clearAll();
             cdDao.clearAll();
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
         //GET: show Update Artist name form
@@ -57,7 +82,7 @@ public class App {
             List<Artist> artists = artistDao.getAll();
             model.put("artists", artists);
 
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
         //GET: show New Artist form
@@ -79,7 +104,7 @@ public class App {
 
             List<Artist> artists = artistDao.getAll();
             model.put("artists", artists);
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
         //GET: show all artists
@@ -90,30 +115,6 @@ public class App {
             model.put("artists", allArtists);
 
             return new ModelAndView(model, "artists.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        //GET: show New CD form
-        get("/artists/:artist_id/cds/new", (req, res)->{
-            Map<String, Object> model = new HashMap<>();
-
-            List<CD> allCDs = cdDao.getAllCDsByArtist(Integer.parseInt(req.queryParams("artistid")));
-            model.put("allCDs", allCDs);
-
-            return new ModelAndView(model, "cd-form.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        //POST: process New CD form
-        post("/artists/:artist_id/cds/new", (req, res)->{
-            Map<String, Object> model = new HashMap<>();
-            String album = req.queryParams("album");
-            int artistId = Integer.parseInt(req.queryParams("artistId"));
-            CD newCD = new CD(album, artistId);
-            cdDao.add(newCD);
-
-            List<CD> cds = cdDao.getAll();
-            model.put("cds", cds);
-
-            return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
         //GET: show specific artist and associated CDs
@@ -157,7 +158,7 @@ public class App {
             List<CD> cds = cdDao.getAll();
             model.put("cds", cds);
 
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
         //GET: delete a specific CD
@@ -165,7 +166,7 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             int cdId = Integer.parseInt(req.queryParams("cd_id"));
             cdDao.deleteById(cdId);
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
         //GET: show all artists and all CDs
