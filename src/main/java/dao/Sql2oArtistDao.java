@@ -43,4 +43,9 @@ public class Sql2oArtistDao implements ArtistDao {
               .executeAndFetch(Artist.class);
     }
   }
+
+  @Override
+  public void update(int id, String newName){
+
+  }
 }

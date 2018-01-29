@@ -14,6 +14,7 @@ public interface ArtistDao {
   List<Artist> getAll();
 
   //Update
+  void update(int id, String newName);
 
   //Delete
 }
