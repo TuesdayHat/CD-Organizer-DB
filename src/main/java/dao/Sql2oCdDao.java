@@ -79,7 +79,13 @@ public class Sql2oCdDao implements CdDao {
   }
 
   @Override
-  public void clearAll() {
-
+  public void clearAll(){
+    String sql = "DELETE FROM cds";
+    try(Connection con = sql2o.open()){
+      con.createQuery(sql)
+              .executeUpdate();
+    }catch (Sql2oException ex) {
+      System.out.println(ex);
+    }
   }
 }
