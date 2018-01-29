@@ -1,9 +1,12 @@
 package dao;
 
+import models.Artist;
 import models.CD;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
+
+import java.util.List;
 
 public class Sql2oCdDao implements CdDao {
   private final Sql2o sql2o;
@@ -30,4 +33,24 @@ public class Sql2oCdDao implements CdDao {
       System.out.println(ex);
     }
   }
+
+  @Override
+  public CD findById(int id){
+    String sql = "SELECT * FROM cds WHERE id = :id";
+    try (Connection con = sql2o.open()){
+      return con.createQuery(sql)
+              .addParameter("id", id)
+              .executeAndFetchFirst(CD.class);
+    }
+  }
+
+  @Override
+  public List<CD> getAll(){
+    String sql = "SELECT * FROM cds";
+    try (Connection con = sql2o.open()){
+      return con.createQuery(sql)
+              .executeAndFetch(CD.class);
+    }
+  }
+
 }

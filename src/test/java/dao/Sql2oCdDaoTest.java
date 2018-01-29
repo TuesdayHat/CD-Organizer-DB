@@ -16,14 +16,17 @@ public class Sql2oCdDaoTest {
   private Sql2oArtistDao artistDao;
   private Sql2oCdDao cdDao;
 
-//  CD testCDOne = new CD("A Night At The Opera");
-  CD testCDTwo = new CD("Wilco", 2);
-  CD testCDThree = new CD("{awayland}", 3);
   CD testCDFour = new CD("AM", 4);
   CD testFive = new CD("Comfort Eagle" , 5);
 
   CD CDOne(){
     return new CD("A Night At The Opera", 1);
+  }
+  CD CDTwo(){
+    return new CD("Wilco", 2);
+  }
+  CD CDThree() {
+    return new CD("{awayland}", 3);
   }
 
   @Before
@@ -45,5 +48,20 @@ public class Sql2oCdDaoTest {
     CD CDOne = CDOne();
     cdDao.add(CDOne);
     assertEquals(1, CDOne.getId());
+  }
+
+  @Test
+  public void findById_existingArtistsCanbeFoundById(){
+    CD CDOne = CDOne();
+    cdDao.add(CDOne);
+    CD foundCD = cdDao.findById(CDOne.getId());
+    assertEquals(CDOne, foundCD);
+  }
+
+  @Test
+  public void getAll_getsAllAddedArtists(){
+    cdDao.add(CDOne());
+    cdDao.add(CDTwo());
+    assertEquals(2, cdDao.getAll().size());
   }
 }

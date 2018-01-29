@@ -10,8 +10,8 @@ public interface CdDao {
   void add(CD album);
 
   //Read
-//  CD findById(int id);
-//  List<CD> getAll();
+  CD findById(int id);
+  List<CD> getAll();
 
   //Update
 //  void update(int id, String newName);
