@@ -1,6 +1,7 @@
 package dao;
 
 import models.Artist;
+import models.CD;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
@@ -79,4 +80,9 @@ public class Sql2oArtistDao implements ArtistDao {
       System.out.println(ex);
     }
   }
+
+//  @Override
+//  public List<CD> getAllCdsByArtist(int id){
+//
+//  }
 }

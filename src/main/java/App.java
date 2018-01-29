@@ -29,7 +29,7 @@ public class App {
 
             ArrayList<CD> allCDs= CD.getInstances();
 
-            CD newCD = new CD(album, artist);
+            CD newCD = new CD(album);
             model.put("allCDs", allCDs);
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());

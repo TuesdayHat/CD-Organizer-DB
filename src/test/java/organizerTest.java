@@ -6,15 +6,17 @@ import static org.junit.Assert.*;
 
 public class organizerTest {
 
-    CD testCDOne = new CD("A Night At The Opera", "Queen");
+//    CD testCDOne = new CD("A Night At The Opera", "Queen");
+//    CD testCDTwo = new CD("Wilco", "Wilco");
+//    CD testCDThree = new CD("{awayland}", "Villagers");
+//    CD testCDFour = new CD("AM", "Arctic Monkeys");
+//    CD testFive = new CD("Comfort Eagle", "Cake");
 
-    CD testCDTwo = new CD("Wilco", "Wilco");
-
-    CD testCDThree = new CD("{awayland}", "Villagers");
-
-    CD testCDFour = new CD("AM", "Arctic Monkeys");
-
-    CD testFive = new CD("Comfort Eagle", "Cake");
+    CD testCDOne = new CD("A Night At The Opera");
+    CD testCDTwo = new CD("Wilco");
+    CD testCDThree = new CD("{awayland}");
+    CD testCDFour = new CD("AM");
+    CD testFive = new CD("Comfort Eagle");
 
     @Test
     public void NewTitleObjectGetsCorrectlyCreated_true() throws Exception {
@@ -31,15 +33,15 @@ public class organizerTest {
         assertEquals("Wilco", CD.getInstances().get(1).getTitle());
     }
 
-    @Test
-    public void NewArtistObjectGetsCorrectlyCreated_String() throws Exception {
-        assertEquals("Queen",testCDOne.getArtist());
-    }
-
-    @Test
-    public void holdsMultipleCDsWithArtists_string() throws Exception {
-        assertEquals(true, CD.getInstances().size() >= 3);
-        assertEquals("Queen", CD.getInstances().get(0).getArtist());
+//    @Test
+//    public void NewArtistObjectGetsCorrectlyCreated_String() throws Exception {
+//        assertEquals("Queen",testCDOne.getArtist());
+//    }
+//
+//    @Test
+//    public void holdsMultipleCDsWithArtists_string() throws Exception {
+//        assertEquals(true, CD.getInstances().size() >= 3);
+//        assertEquals("Queen", CD.getInstances().get(0).getArtist());
     }
 
 //    @Test
@@ -48,4 +50,4 @@ public class organizerTest {
 //        assertArrayEquals(sortedArtist, CD.getSorted());
 //    }
 
-}
+

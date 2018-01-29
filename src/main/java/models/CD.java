@@ -9,11 +9,15 @@ public class CD {
   private int id;
   private int artistId;
 
-  public CD(String title, String artist){
-    this.title = title;
-    this.artist = artist;
-    instances.add(this);
-  }
+//  public CD(String title, String artist){
+//    this.title = title;
+//    this.artist = artist;
+//    instances.add(this);
+//  }
+public CD(String title){
+  this.title = title;
+  instances.add(this);
+}
 
   public String getTitle() {
       return this.title;
