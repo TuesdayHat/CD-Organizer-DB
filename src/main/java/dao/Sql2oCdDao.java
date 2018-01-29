@@ -68,6 +68,13 @@ public class Sql2oCdDao implements CdDao {
 
   @Override
   public void deleteById(int id) {
-
+    String sql = "DELETE cds WHERE id = :id";
+    try(Connection con = sql2o.open()){
+      con.createQuery(sql)
+              .addParameter("id", id)
+              .executeUpdate();
+    } catch (Sql2oException ex) {
+      System.out.println(ex);
+    }
   }
 }
