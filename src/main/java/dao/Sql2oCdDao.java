@@ -66,4 +66,8 @@ public class Sql2oCdDao implements CdDao {
     }
   }
 
+  @Override
+  public void deleteById(int id) {
+
+  }
 }

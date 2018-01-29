@@ -75,4 +75,27 @@ public class Sql2oCdDaoTest {
     CD updatedCD = cdDao.findById(cdOne.getId());
     assertNotEquals(cdOne, updatedCD);
   }
+
+  @Test
+  public void deleteById_deletesCorrectArtist(){
+    CD cdOne = CDOne();
+    cdDao.add(cdOne);
+    CD cdTwo = CDTwo();
+    cdDao.add(cdTwo);
+
+    cdDao.deleteById(cdOne.getId());
+    assertEquals(1, cdDao.getAll().size());
+
+  }
+
+//  @Test
+//  public void clearAll_clearsAllArtists(){
+//    Artist artistOne = artistOne();
+//    artistDao.add(artistOne);
+//    Artist artistTwo = artistTwo();
+//    artistDao.add(artistTwo);
+//
+//    artistDao.clearAll();
+//    assertEquals(0, artistDao.getAll().size());
+//  }
 }

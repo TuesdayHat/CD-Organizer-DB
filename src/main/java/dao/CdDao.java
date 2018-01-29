@@ -17,6 +17,6 @@ public interface CdDao {
   void update(int id, String newTitle);
 
   //Delete
-//  void deleteById(int id);
+  void deleteById(int id);
 //  void clearAll();
 }
