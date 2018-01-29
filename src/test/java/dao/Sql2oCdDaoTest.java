@@ -16,11 +16,15 @@ public class Sql2oCdDaoTest {
   private Sql2oArtistDao artistDao;
   private Sql2oCdDao cdDao;
 
-  CD testCDOne = new CD("A Night At The Opera");
-  CD testCDTwo = new CD("Wilco");
-  CD testCDThree = new CD("{awayland}");
-  CD testCDFour = new CD("AM");
-  CD testFive = new CD("Comfort Eagle");
+//  CD testCDOne = new CD("A Night At The Opera");
+  CD testCDTwo = new CD("Wilco", 2);
+  CD testCDThree = new CD("{awayland}", 3);
+  CD testCDFour = new CD("AM", 4);
+  CD testFive = new CD("Comfort Eagle" , 5);
+
+  CD CDOne(){
+    return new CD("A Night At The Opera", 1);
+  }
 
   @Before
   public void setUp() throws Exception {
@@ -38,7 +42,8 @@ public class Sql2oCdDaoTest {
 
   @Test
   public void add_addCdSetsId(){
-    cdDao.add(testCDOne);
-    assertEquals(1, testCDOne.getId());
+    CD CDOne = CDOne();
+    cdDao.add(CDOne);
+    assertEquals(1, CDOne.getId());
   }
 }
