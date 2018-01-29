@@ -25,6 +25,9 @@ public class App {
         get("/cds/new", (req, res)->{
             Map<String, Object> model = new HashMap<>();
 
+            List<Artist> allArtists = artistDao.getAll();
+            model.put("artists", allArtists);
+
             List<CD> allCDs = cdDao.getAll();
             model.put("allCDs", allCDs);
 
@@ -153,7 +156,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //GET: delete a specific CD
-        get("/cds/delete", (req, res)->{
+        get("/cds/:cd_id/delete", (req, res)->{
             Map<String, Object> model = new HashMap<>();
             int cdId = Integer.parseInt(req.queryParams("cd_id"));
             cdDao.deleteById(cdId);
