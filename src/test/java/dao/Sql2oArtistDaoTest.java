@@ -92,4 +92,6 @@ public class Sql2oArtistDaoTest {
     artistDao.clearAll();
     assertEquals(0, artistDao.getAll().size());
   }
+
+
 }

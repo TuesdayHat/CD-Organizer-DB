@@ -12,6 +12,7 @@ public interface CdDao {
   //Read
   CD findById(int id);
   List<CD> getAll();
+  List<CD> getAllCDsByArtist(int id);
 
   //Update
   void update(int id, String newTitle);

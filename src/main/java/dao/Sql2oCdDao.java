@@ -88,4 +88,14 @@ public class Sql2oCdDao implements CdDao {
       System.out.println(ex);
     }
   }
+
+  @Override
+  public List<CD> getAllCDsByArtist(int id) {
+    String sql = "SELECT * FROM cds WHERE artistid = :artistid";
+    try (Connection con = sql2o.open()){
+      return con.createQuery(sql)
+              .addParameter("artistid", id)
+              .executeAndFetch(CD.class);
+    }
+  }
 }

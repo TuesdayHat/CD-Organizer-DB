@@ -16,9 +16,6 @@ public class Sql2oCdDaoTest {
   private Sql2oArtistDao artistDao;
   private Sql2oCdDao cdDao;
 
-  CD testCDFour = new CD("AM", 4);
-  CD testFive = new CD("Comfort Eagle" , 5);
-
   CD CDOne(){
     return new CD("A Night At The Opera", 1);
   }
@@ -26,14 +23,13 @@ public class Sql2oCdDaoTest {
     return new CD("Wilco", 2);
   }
   CD CDThree() {
-    return new CD("{awayland}", 3);
+    return new CD("Killer Queen", 1);
   }
 
   @Before
   public void setUp() throws Exception {
     String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
     Sql2o sql2o = new Sql2o(connectionString, "", "");
-//    artistDao = new Sql2oArtistDao(sql2o);
     cdDao = new Sql2oCdDao(sql2o);
     conn = sql2o.open();
   }
@@ -73,7 +69,7 @@ public class Sql2oCdDaoTest {
 
     cdDao.update(cdOne.getId(), "Killer Queen");
     CD updatedCD = cdDao.findById(cdOne.getId());
-    assertNotEquals(cdOne, updatedCD);
+    assertNotEquals(initialName, updatedCD.getTitle());
   }
 
   @Test
@@ -98,4 +94,12 @@ public class Sql2oCdDaoTest {
     cdDao.clearAll();
     assertEquals(0, cdDao.getAll().size());
   }
+  @Test
+  public void getAllCDsByArtist(){
+    cdDao.add(CDOne());
+    cdDao.add(CDTwo());
+    cdDao.add(CDThree());
+    assertEquals(2, cdDao.getAllCDsByArtist(1).size());
+  }
+
 }
