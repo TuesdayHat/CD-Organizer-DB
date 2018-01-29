@@ -14,7 +14,7 @@ public interface CdDao {
   List<CD> getAll();
 
   //Update
-//  void update(int id, String newName);
+  void update(int id, String newTitle);
 
   //Delete
 //  void deleteById(int id);

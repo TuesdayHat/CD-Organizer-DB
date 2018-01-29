@@ -45,17 +45,17 @@ public class Sql2oCdDaoTest {
 
   @Test
   public void add_addCdSetsId(){
-    CD CDOne = CDOne();
-    cdDao.add(CDOne);
-    assertEquals(1, CDOne.getId());
+    CD cdOne = CDOne();
+    cdDao.add(cdOne);
+    assertEquals(1, cdOne.getId());
   }
 
   @Test
   public void findById_existingArtistsCanbeFoundById(){
-    CD CDOne = CDOne();
-    cdDao.add(CDOne);
-    CD foundCD = cdDao.findById(CDOne.getId());
-    assertEquals(CDOne, foundCD);
+    CD cdOne = CDOne();
+    cdDao.add(cdOne);
+    CD foundCD = cdDao.findById(cdOne.getId());
+    assertEquals(cdOne, foundCD);
   }
 
   @Test
@@ -63,5 +63,16 @@ public class Sql2oCdDaoTest {
     cdDao.add(CDOne());
     cdDao.add(CDTwo());
     assertEquals(2, cdDao.getAll().size());
+  }
+
+  @Test
+  public void update_alterArtistName(){
+    String initialName = "A Night At The Opera";
+    CD cdOne = CDOne();
+    cdDao.add(cdOne);
+
+    cdDao.update(cdOne.getId(), "Killer Queen");
+    CD updatedCD = cdDao.findById(cdOne.getId());
+    assertNotEquals(cdOne, updatedCD);
   }
 }
