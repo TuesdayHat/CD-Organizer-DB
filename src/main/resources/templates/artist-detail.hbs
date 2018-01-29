@@ -1,0 +1,17 @@
+{{#partial "content"}}
+    <p>{{artist.name}} </p>
+
+    <ul>
+        {{#each foundCds}}
+            <h5>Album Name:</h5>
+            <p>{{title}}</p>
+            <a href="/cds/update">Edit this album</a><br>
+            <a href="/cds/delete">DELETE all albums (cannot be undone)</a>
+        {{/each}}
+
+    </ul>
+    <a href="/artists/update">Edit this artist</a><br>
+    <a href="/artists/delete">DELETE this artist (cannot be undone)</a>
+{{/partial}}
+
+{{> layout.hbs}}

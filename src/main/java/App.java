@@ -25,7 +25,7 @@ public class App {
         get("/cds/new", (req, res)->{
             Map<String, Object> model = new HashMap<>();
 
-            List<CD> allCDs = cdDao.getAllCDsByArtist(Integer.parseInt(req.queryParams("artistid")));
+            List<CD> allCDs = cdDao.getAll();
             model.put("allCDs", allCDs);
 
             return new ModelAndView(model, "cd-form.hbs");
@@ -120,24 +120,15 @@ public class App {
         //GET: show specific artist and associated CDs
         get("/artists/:artist_id", (req, res)->{
             Map<String, Object> model = new HashMap<>();
-            int artistId = Integer.parseInt(req.queryParams("artist_id"));
+            int artistId = Integer.parseInt(req.params("artist_id"));
             model.put("foundArtist", artistDao.findById(artistId));
             model.put("foundCDs", cdDao.getAllCDsByArtist(artistId));
 
             return new ModelAndView(model, "artist-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
-        //GET: show individual CD
-        get("/artists/:artist_id/cds/:cd_id", (req, res)->{
-            Map<String, Object> model = new HashMap<>();
-            int cdId = Integer.parseInt(req.queryParams("cd_id"));
-            CD foundCD = cdDao.findById(cdId);
-            model.put("foundCD", foundCD.getTitle());
-            return new ModelAndView(model, "cd-detail.hbs");
-        }, new HandlebarsTemplateEngine());
-
         //GET: show CD Update form
-        get("/artists/:artist_id/cds/:cd_id/update", (req, res)->{
+        get("/cds/update", (req, res)->{
             Map<String, Object> model = new HashMap<>();
 
             model.put("editCD", true);
@@ -149,7 +140,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //POST: process CD Update form
-        post("/artists/:artist_id/cds/:cd_id/update", (req, res)->{
+        post("/cds/update", (req, res)->{
             Map<String, Object> model = new HashMap<>();
             int idOfCDToEdit = Integer.parseInt(req.queryParams("editCDId"));
             String newTitle = req.queryParams("newCDName");
@@ -162,12 +153,22 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //GET: delete a specific CD
-        get("/artists/:artist_id/cds/:cd_id/delete", (req, res)->{
+        get("/cds/delete", (req, res)->{
             Map<String, Object> model = new HashMap<>();
             int cdId = Integer.parseInt(req.queryParams("cd_id"));
             cdDao.deleteById(cdId);
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
+
+        //GET: show individual CD
+        get("/cds/:cd_id", (req, res)->{
+            Map<String, Object> model = new HashMap<>();
+            int cdId = Integer.parseInt(req.params("cd_id"));
+            CD foundCD = cdDao.findById(cdId);
+            model.put("foundCD", foundCD.getTitle());
+            return new ModelAndView(model, "cd-detail.hbs");
+        }, new HandlebarsTemplateEngine());
+
 
         //GET: show all artists and all CDs
         get("/", (req, res) -> {
