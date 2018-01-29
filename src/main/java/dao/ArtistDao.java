@@ -18,4 +18,5 @@ public interface ArtistDao {
 
   //Delete
   void deleteById(int id);
+  void clearAll();
 }

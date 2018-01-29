@@ -81,4 +81,15 @@ public class Sql2oArtistDaoTest {
     assertEquals(1, artistDao.getAll().size());
 
   }
+
+  @Test
+  public void clearAll_clearsAllArtists(){
+    Artist artistOne = artistOne();
+    artistDao.add(artistOne);
+    Artist artistTwo = artistTwo();
+    artistDao.add(artistTwo);
+
+    artistDao.clearAll();
+    assertEquals(0, artistDao.getAll().size());
+  }
 }

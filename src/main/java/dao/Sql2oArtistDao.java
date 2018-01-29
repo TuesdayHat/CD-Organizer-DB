@@ -68,4 +68,9 @@ public class Sql2oArtistDao implements ArtistDao {
       System.out.println(ex);
     }
   }
+
+  @Override
+  public void clearAll(){
+
+  }
 }
