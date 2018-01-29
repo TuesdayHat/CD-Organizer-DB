@@ -68,6 +68,17 @@ public class Sql2oArtistDaoTest {
     artistDao.update(artist.getId(), "Radiohead");
     Artist updatedArtist = artistDao.findById(artist.getId());
     assertNotEquals(artist, updatedArtist);
+  }
+
+  @Test
+  public void deleteById_deletesCorrectArtist(){
+    Artist artistOne = artistOne();
+    artistDao.add(artistOne);
+    Artist artistTwo = artistTwo();
+    artistDao.add(artistTwo);
+
+    artistDao.deleteById(artistOne.getId());
+    assertEquals(1, artistDao.getAll().size());
 
   }
 }

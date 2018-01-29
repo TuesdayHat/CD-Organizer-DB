@@ -55,6 +55,10 @@ public class Sql2oArtistDao implements ArtistDao {
     } catch (Sql2oException ex) {
       System.out.println(ex);
     }
+  }
+
+  @Override
+  public void deleteById(int id){
 
   }
 }

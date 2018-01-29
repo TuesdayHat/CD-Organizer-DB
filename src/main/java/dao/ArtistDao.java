@@ -17,4 +17,5 @@ public interface ArtistDao {
   void update(int id, String newName);
 
   //Delete
+  void deleteById(int id);
 }
